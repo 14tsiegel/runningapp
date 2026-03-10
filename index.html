@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="STRIDE">
+<meta name="theme-color" content="#0a0a08">
 <title>STRIDE — Tristan's Training Log</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -208,6 +212,120 @@ main { max-width:1200px; margin:0 auto; padding:2rem; }
 ::-webkit-scrollbar { width:5px; }
 ::-webkit-scrollbar-track { background:var(--bg); }
 ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+/* ── MOBILE ─────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Header */
+  header { padding:0 1rem; height:52px; }
+  .logo { font-size:1.4rem; }
+  .logo span { display:none; }
+  .nav button { font-size:0.62rem; padding:0.35rem 0.6rem; letter-spacing:0.05em; }
+
+  main { padding:1rem; }
+
+  /* Stats — stack 3 in a row but smaller */
+  .stats { grid-template-columns:repeat(3,1fr); }
+  .stat { padding:0.85rem 0.75rem; }
+  .stat-val { font-size:1.6rem; }
+  .stat-sub { font-size:0.52rem; }
+  .stat-label { font-size:0.5rem; }
+
+  /* Week plan */
+  .plan-head { flex-direction:column; align-items:flex-start; gap:0.4rem; padding:0.6rem 1rem; }
+  .plan-head-right { width:100%; justify-content:space-between; }
+  .plan-row { grid-template-columns:52px 20px 1fr 0px 24px; gap:0.4rem; padding:0 0.75rem; min-height:42px; }
+  .plan-target-input { display:none; } /* hide target on mobile — too cramped */
+  .plan-desc-input { font-size:0.72rem; }
+  .plan-day { font-size:0.56rem; }
+
+  /* Log form */
+  .form-card { padding:1.25rem 1rem; }
+  .form-title { font-size:1.1rem; margin-bottom:1rem; }
+
+  /* Pills — smaller, wrap tightly */
+  .pills { gap:0.3rem; margin-bottom:0.85rem; }
+  .pill { font-size:0.56rem; padding:0.28rem 0.6rem; }
+
+  /* Form grids — all single column on mobile */
+  .fgrid.g4 { grid-template-columns:1fr 1fr; }
+  .fgrid.g3 { grid-template-columns:1fr 1fr; }
+
+  /* Bigger tap targets for inputs */
+  .field input, .field select, .field textarea {
+    font-size:0.9rem;
+    padding:0.65rem 0.75rem;
+    min-height:44px;
+  }
+  .field label { font-size:0.55rem; }
+
+  /* Duration stays prominent */
+  .dur-wrap input { min-height:48px; }
+
+  /* Recent cards — vertical stack */
+  .card {
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto auto auto;
+    padding:0.85rem 0.9rem;
+    gap:0.4rem;
+  }
+  .card-date { grid-column:1; grid-row:1; }
+  .card-meta { grid-column:1 / -1; grid-row:2; }
+  .card-note { max-width:100%; white-space:normal; }
+  /* Stats row on mobile card */
+  .card-stat { font-size:0.72rem; }
+  /* Buttons row */
+  .edit-btn { grid-column:1; grid-row:4; font-size:0.62rem; padding:0.45rem; text-align:center; }
+  .del-btn  { grid-column:2; grid-row:4; text-align:right; }
+
+  /* Hide some stats on card to save space — keep dist, pace, duration */
+  .card > .card-stat:nth-of-type(3) { display:none; } /* effort/mood — shown in edit */
+
+  /* Recent section header */
+  .recent-head { flex-direction:column; align-items:flex-start; gap:0.25rem; }
+  .recent-count { font-size:0.56rem; }
+
+  /* History — simplified on mobile */
+  .hist-row {
+    grid-template-columns:80px 1fr 60px 60px 24px;
+    padding:0.7rem 0.85rem;
+    gap:0.4rem;
+    font-size:0.68rem;
+  }
+  .hist-head { padding:0.4rem 0.85rem; }
+  /* Hide duration and effort columns on mobile history */
+  .hist-row > div:nth-child(5),
+  .hist-row > div:nth-child(6),
+  .hist-head > span:nth-child(5),
+  .hist-head > span:nth-child(6) { display:none; }
+
+  /* Progress */
+  .prog-grid { grid-template-columns:1fr; }
+  .prog-card { padding:1rem; }
+  .bar-lbl { font-size:0.42rem; }
+
+  /* Modal — full screen sheet on mobile */
+  .overlay { align-items:flex-end; }
+  .modal {
+    max-width:100%;
+    max-height:92vh;
+    border-radius:12px 12px 0 0;
+    border-bottom:none;
+    padding:1.5rem 1.25rem;
+    padding-bottom:calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  .modal .fgrid.g4 { grid-template-columns:1fr 1fr; }
+  .modal .fgrid.g3 { grid-template-columns:1fr 1fr; }
+
+  /* Toast */
+  .toast { bottom:calc(1rem + env(safe-area-inset-bottom)); right:1rem; left:1rem; text-align:center; font-size:0.7rem; }
+}
+
+@media (max-width: 380px) {
+  .stats { grid-template-columns:1fr 1fr; }
+  .stat:last-child { grid-column:1 / -1; }
+  .fgrid.g4, .fgrid.g3 { grid-template-columns:1fr; }
+  .modal .fgrid.g4, .modal .fgrid.g3 { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
